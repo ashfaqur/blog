@@ -1,0 +1,178 @@
+openapi: 3.0.3
+info:
+  title: Post API
+  description: A simple API for managing blog posts.
+  version: 1.0.0
+
+paths:
+  /posts:
+    get:
+      summary: List all posts
+      responses:
+        "200":
+          description: A list of posts
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Post"
+              examples:
+                example:
+                  value:
+                    - id: "123"
+                      author: "Jane Doe"
+                      date: "2025-05-16T10:30:00Z"
+                      content: "First post content."
+                    - id: "124"
+                      author: "John Smith"
+                      date: "2025-05-16T11:00:00Z"
+                      content: "Second post content."
+
+    post:
+      summary: Create a new post
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PostInput"
+            examples:
+              example:
+                value:
+                  author: "Alice Johnson"
+                  date: "2025-05-16T12:00:00Z"
+                  content: "This is a new post."
+      responses:
+        "201":
+          description: Post created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Post"
+              examples:
+                example:
+                  value:
+                    id: "125"
+                    author: "Alice Johnson"
+                    date: "2025-05-16T12:00:00Z"
+                    content: "This is a new post."
+
+  /posts/{postId}:
+    get:
+      summary: Get a post by ID
+      parameters:
+        - in: path
+          name: postId
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: A single post
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Post"
+              examples:
+                example:
+                  value:
+                    id: "123"
+                    author: "Jane Doe"
+                    date: "2025-05-16T10:30:00Z"
+                    content: "First post content."
+        "404":
+          description: Post not found
+
+    put:
+      summary: Update a post by ID
+      parameters:
+        - in: path
+          name: postId
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PostInput"
+            examples:
+              example:
+                value:
+                  author: "Jane Doe"
+                  date: "2025-05-16T14:00:00Z"
+                  content: "Updated post content."
+      responses:
+        "200":
+          description: Post updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Post"
+              examples:
+                example:
+                  value:
+                    id: "123"
+                    author: "Jane Doe"
+                    date: "2025-05-16T14:00:00Z"
+                    content: "Updated post content."
+        "404":
+          description: Post not found
+
+    delete:
+      summary: Delete a post by ID
+      parameters:
+        - in: path
+          name: postId
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Post deleted
+        "404":
+          description: Post not found
+
+components:
+  schemas:
+    Post:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "123abc"
+        author:
+          type: string
+          example: "Jane Doe"
+        date:
+          type: string
+          format: date-time
+          example: "2025-05-16T12:00:00Z"
+        content:
+          type: string
+          example: "This is a post content."
+      required:
+        - id
+        - author
+        - date
+        - content
+
+    PostInput:
+      type: object
+      properties:
+        author:
+          type: string
+          example: "Jane Doe"
+        date:
+          type: string
+          format: date-time
+          example: "2025-05-16T12:00:00Z"
+        content:
+          type: string
+          example: "This is a post content."
+      required:
+        - author
+        - date
+        - content
