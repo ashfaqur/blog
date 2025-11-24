@@ -99,6 +99,11 @@ Docker compose added, but the pytest is starting earlier than spring boot
 
 Docker build for server has a health check, which can wait till server is on
 
+Base url now set as an env var, so that python script test can use
+different baseurl for development env and in production
+
+Port mapped to different port to avoid conflict with development env
+
 
 
 
