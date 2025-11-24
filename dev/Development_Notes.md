@@ -95,4 +95,8 @@ its time to orchestrate and put them together with the docker compose.
 
     sudo docker compose up --build
 
+Docker compose added, but the pytest is starting earlier than spring boot
+
+## Docker compose wait for server
+
 

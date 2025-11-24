@@ -9,6 +9,12 @@ services:
     networks:
       - backend
     restart: "no"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:7075/blog/actuator/health"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+      start_period: 10s
 
   script:
     build:
@@ -16,7 +22,10 @@ services:
       dockerfile: Dockerfile
     container_name: pytest-client
     depends_on:
-      - server
+      server:
+        condition: service_healthy
+    environment:
+      BASE_URL: "http://server:7075"
     networks:
       - backend
     restart: "no"
