@@ -76,7 +76,11 @@ https://laerciosantanna.medium.com/mastering-restful-api-testing-with-pytest-56d
 
 Added a simple test for the test rest get method
 
+Added custom logging for pytests
+
     pytest --log-cli-level=INFO rest_test.py
+
+
 
 ## Docker for python
 
@@ -106,6 +110,10 @@ different baseurl for development env and in production
 
 Port mapped to different port to avoid conflict with development env
 
+## Rest APIs
+
+Now that the whole infrastructure has been setup its time to get
+back to creating the actual rest apis.
 
 
 

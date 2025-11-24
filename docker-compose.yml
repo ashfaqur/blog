@@ -9,7 +9,7 @@ services:
     networks:
       - backend
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:7075/blog/actuator/health"]
+      test: ["CMD", "curl", "-f", "http://localhost:7075/actuator/health"]
       interval: 5s
       timeout: 3s
       retries: 20
