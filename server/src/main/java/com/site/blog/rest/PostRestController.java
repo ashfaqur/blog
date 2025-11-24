@@ -2,6 +2,7 @@ package com.site.blog.rest;
 
 import com.site.blog.entity.BlogPost;
 import com.site.blog.service.BlogPostService;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,9 +25,15 @@ public class PostRestController {
         return Map.of("message", "Hello World!");
     }
 
-    @GetMapping("/")
+    @GetMapping
     public List<BlogPost> getPosts() {
         return this.postService.getAllPosts();
+    }
+
+    @DeleteMapping("/")
+    public String deletePosts() {
+        this.postService.removeAllPosts();
+        return "All blog posts deleted";
     }
 
 

@@ -19,15 +19,19 @@ public class BlogPostService {
         generateSampleData();
     }
 
+    public void removeAllPosts() {
+        this.blogPostMap.clear();
+    }
+
     public List<BlogPost> getAllPosts() {
         return this.blogPostMap.values().stream().sorted(
-                Comparator.comparing(blogPost -> Instant.parse(blogPost.date()))
+                Comparator.comparing(BlogPost::date)
         ).toList();
     }
 
     private void generateSampleData() {
-        BlogPost post1 = new BlogPost("123", "Jane Doe", "2025-05-16T10:30:00Z", "First post content.");
-        BlogPost post2 = new BlogPost("124", "John Smith", "2025-05-16T11:00:00Z", "Second post content.");
+        BlogPost post1 = new BlogPost("123", "Jane Doe", Instant.parse("2025-05-16T10:30:00Z"), "First post content.");
+        BlogPost post2 = new BlogPost("124", "John Smith", Instant.parse("2025-05-16T11:00:00Z"), "Second post content.");
         this.blogPostMap.put(post1.id(), post1);
         this.blogPostMap.put(post2.id(), post2);
     }

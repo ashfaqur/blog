@@ -1,4 +1,6 @@
 package com.site.blog.entity;
 
-public record BlogPost(String id, String author, String date, String content) {
+import java.time.Instant;
+
+public record BlogPost(String id, String author, Instant date, String content) {
 }
