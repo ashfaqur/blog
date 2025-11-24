@@ -1,0 +1,25 @@
+services:
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: blog-app-server
+    ports:
+      - "7075:7075"
+    networks:
+      - backend
+    restart: "no"
+
+  script:
+    build:
+      context: ./script
+      dockerfile: Dockerfile
+    container_name: pytest-client
+    depends_on:
+      - server
+    networks:
+      - backend
+    restart: "no"
+
+networks:
+  backend:

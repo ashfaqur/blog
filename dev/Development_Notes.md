@@ -66,5 +66,33 @@ Some typical docker commands
 
 Dockerfile for the Spring Boot app has been setup and working.
 
+## Python script
+
+Next is the python script for testing the rest endpoints.
+
+Probably best to use pytest
+
+https://laerciosantanna.medium.com/mastering-restful-api-testing-with-pytest-56d22460a9c4
+
+Added a simple test for the test rest get method
+
+## Docker for python
+
+Next up is setting up docker for the python tests
+
+    sudo docker build -t pytest:latest .
+
+    sudo docker run -t pytest:latest
+
+## Docker compose
+
+Ok now that Dockerfiles for both spring boot and pytest has been setup
+its time to orchestrate and put them together with the docker compose.
+
+    sudo docker compose build
+
+    sudo docker compose up
+
+    sudo docker compose up --build
 
 
