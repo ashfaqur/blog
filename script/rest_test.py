@@ -2,6 +2,12 @@ import os
 import logging
 import requests
 
+logging.basicConfig(
+    format="%(asctime)s %(levelname)-8s %(message)s",
+    level=logging.INFO,
+    datefmt="%H:%M:%S",
+)
+
 BASE_URL = os.getenv("BASE_URL", "http://localhost:7075")
 
 def test_hello_world():

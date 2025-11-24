@@ -76,6 +76,8 @@ https://laerciosantanna.medium.com/mastering-restful-api-testing-with-pytest-56d
 
 Added a simple test for the test rest get method
 
+    pytest --log-cli-level=INFO rest_test.py
+
 ## Docker for python
 
 Next up is setting up docker for the python tests

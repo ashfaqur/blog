@@ -8,5 +8,5 @@ RUN python -m pip install --no-cache-dir -r requirements.txt
 
 # Run test
 COPY rest_test.py .
-CMD ["pytest", "rest_test.py"]
+CMD ["pytest", "--log-cli-level=INFO", "rest_test.py"]
 
