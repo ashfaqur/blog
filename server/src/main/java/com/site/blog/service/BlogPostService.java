@@ -19,11 +19,19 @@ public class BlogPostService {
         generateSampleData();
     }
 
+    public boolean containsPost(String id) {
+        return this.blogPostMap.containsKey(id);
+    }
+
+    public void removePost(String id) {
+        this.blogPostMap.remove(id);
+    }
+
     public void removeAllPosts() {
         this.blogPostMap.clear();
     }
 
-    public List<BlogPost> getAllPosts() {
+    public List<BlogPost> getAllPostsSortedTimestamp() {
         return this.blogPostMap.values().stream().sorted(
                 Comparator.comparing(BlogPost::date)
         ).toList();
