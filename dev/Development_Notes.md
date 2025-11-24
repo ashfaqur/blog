@@ -97,6 +97,8 @@ its time to orchestrate and put them together with the docker compose.
 
 Docker compose added, but the pytest is starting earlier than spring boot
 
-## Docker compose wait for server
+Docker build for server has a health check, which can wait till server is on
+
+
 
 

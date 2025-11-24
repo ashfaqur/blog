@@ -5,10 +5,9 @@ services:
       dockerfile: Dockerfile
     container_name: blog-app-server
     ports:
-      - "7075:7075"
+      - "8080:7075"
     networks:
       - backend
-    restart: "no"
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:7075/blog/actuator/health"]
       interval: 5s
@@ -28,7 +27,6 @@ services:
       BASE_URL: "http://server:7075"
     networks:
       - backend
-    restart: "no"
 
 networks:
   backend:
