@@ -12,7 +12,7 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    private static final String[] PUBLIC_PATHS = {"/posts", "/posts/", "/posts/**", "/actuator/health", "/actuator/info"};
+    private static final String[] PUBLIC_PATHS = {"/posts", "/posts/", "/posts/**", "/actuator/health", "/actuator/info", "/error"};
 
     @Bean
     @Order(1)

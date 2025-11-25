@@ -1,6 +1,0 @@
-package com.site.blog.entity;
-
-import java.time.Instant;
-
-public record BlogPost(String id, String author, Instant date, String content) {
-}

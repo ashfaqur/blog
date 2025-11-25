@@ -115,5 +115,10 @@ Port mapped to different port to avoid conflict with development env
 Now that the whole infrastructure has been setup its time to get
 back to creating the actual rest apis.
 
+Added the get all posts and the delete apis
 
+Now adding the post create rest point api
 
+For validation:
+
+https://www.baeldung.com/spring-boot-bean-validation
