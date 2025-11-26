@@ -17,6 +17,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @Service
 public class PostService {
 
+    // TODO: Replace with DB
     private final Map<String, Post> postMap;
 
     public PostService() {
@@ -57,10 +58,6 @@ public class PostService {
             throw new PostCreationException("Invalid date format " + input.getDate() + ". Expected format example: 2025-05-16T10:30:00Z");
         }
         return new Post(id, input.getAuthor(), date, input.getContent());
-    }
-
-    public boolean containsPost(String id) {
-        return this.postMap.containsKey(id);
     }
 
     public void removePost(String id) {
