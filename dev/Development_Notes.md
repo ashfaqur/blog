@@ -134,6 +134,8 @@ The test script is now rewritten
 
 Added error hanlding tests
 
+https://laerciosantanna.medium.com/mastering-restful-api-testing-with-pytest-56d22460a9c4
+
 ## Align with schema
 
 Fixed unnecessary wrapper for posts response which did not align with schema
@@ -142,6 +144,8 @@ Fixed unnecessary wrapper for posts response which did not align with schema
 
 Now the last part is to add test for the Post Service
 
+## OpenAPI swagger
 
+Align as much as possible with given schema wrt api doc
 
 
