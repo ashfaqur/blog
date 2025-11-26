@@ -88,7 +88,7 @@ def setup():
         delete_post(post["id"])
     yield
 
-# Test
+# Tests
 
 
 def test_rest_api(setup):
@@ -149,3 +149,110 @@ def test_rest_api(setup):
     assert len(posts) == 0
     logging.info("Test delete the post is successful")
     logging.info("-----------------------------------------------")
+
+
+@pytest.mark.parametrize(
+    "invalid_post, expected_error",
+    [
+        # Author field is blank
+        ({"author": "", "content": "Valid content",
+         "date": "2025-06-16T10:30:00Z"}, ["Author is mandatory"]),
+        # Author field is too long
+        ({"author": "A"*201, "content": "Valid content",
+         "date": "2025-06-16T10:30:00Z"}, ["Author name cannot exceed"]),
+        # Content is blank
+        ({"author": "Jackson Dane", "content": "",
+         "date": "2025-06-16T10:30:00Z"}, ["Content is mandatory"]),
+        # Date is blank
+        ({"author": "Jackson Dane",
+         "content": "Valid content", "date": ""}, ["Date is mandatory"]),
+        # Invalid date format
+        ({"author": "Jackson Dane", "content": "Valid content",
+         "date": "invalid-date"}, ["Invalid date format"]),
+        # Multiple fields invalid
+        ({"author": "", "content": "", "date": "bad-date"},
+         ["Author is mandatory", "Content is mandatory", "Date is mandatory"]),
+    ]
+)
+def test_create_post_invalid_input(invalid_post, expected_error):
+    logging.info(f"Invalid post: {invalid_post}")
+    logging.info(f"Testing for errors: {expected_error}")
+    response = requests.post(POSTS_URL, json=invalid_post)
+    logging.info(
+        f"POST status: {response.status_code}, Response: {response.json()}")
+    assert response.status_code == 400
+
+    data = response.json()
+    assert isinstance(data, dict)
+
+    for field, message in data.items():
+        message = message.lower()
+        assert any(error.lower(
+        ) in message for error in expected_error), f"Field '{field}' error '{message}' does not match any expected errors: {expected_error}"
+
+
+@pytest.mark.parametrize(
+    "invalid_post, expected_error",
+    [
+        # Author field is blank
+        ({"author": "", "content": "Valid content",
+         "date": "2025-06-16T10:30:00Z"}, ["Author is mandatory"]),
+        # Author field is too long
+        ({"author": "A"*201, "content": "Valid content",
+         "date": "2025-06-16T10:30:00Z"}, ["Author name cannot exceed"]),
+        # Content is blank
+        ({"author": "Jackson Dane", "content": "",
+         "date": "2025-06-16T10:30:00Z"}, ["Content is mandatory"]),
+        # Date is blank
+        ({"author": "Jackson Dane",
+         "content": "Valid content", "date": ""}, ["Date is mandatory"]),
+        # Invalid date format
+        ({"author": "Jackson Dane", "content": "Valid content",
+         "date": "invalid-date"}, ["Invalid date format"]),
+        # Multiple fields invalid
+        ({"author": "", "content": "", "date": "bad-date"},
+         ["Author is mandatory", "Content is mandatory", "Date is mandatory"]),
+    ]
+)
+def test_update_put_invalid_input(invalid_post, expected_error):
+    logging.info("Fist create a new post")
+    new_post_data: dict = {
+        "author": "Jackson Dane",
+        "content": "Custom new blog post",
+        "date": "2025-06-16T10:30:00Z"
+    }
+    created_post = create_post(new_post_data)
+    assert created_post["author"] == new_post_data["author"]
+    assert created_post["content"] == new_post_data["content"]
+    assert created_post["date"] == new_post_data["date"]
+    created_post_id = created_post["id"]
+    logging.info("Test creation of a new post is successful")
+    logging.info("-----------------------------------------------")
+    logging.info(f"Testing for errors: {expected_error}")
+    response = requests.put(
+        f"{POSTS_URL}/{created_post_id}", json=invalid_post)
+    logging.info(
+        f"PUT status: {response.status_code}, Response: {response.json()}")
+    assert response.status_code == 400
+
+    data = response.json()
+    assert isinstance(data, dict)
+
+    for field, message in data.items():
+        message = message.lower()
+        assert any(error.lower(
+        ) in message for error in expected_error), f"Field '{field}' error '{message}' does not match any expected errors: {expected_error}"
+    logging.info("-----------------------------------------------")
+    logging.info("Test delete the post")
+    delete_post(created_post_id)
+    posts = get_posts()
+    assert len(posts) == 0
+    logging.info("Test delete the post is successful")
+
+
+def test_invalid_delete():
+    logging.info(f"Testing delete non-existing postid")
+    response = requests.delete(f"{POSTS_URL}/12341232")
+    logging.info(
+        f"DELETE status: {response.status_code}, Response: {response.json()}")
+    assert response.status_code == 404
