@@ -241,7 +241,8 @@ def test_update_put_invalid_input(invalid_post, expected_error):
     for field, message in data.items():
         message = message.lower()
         assert any(error.lower(
-        ) in message for error in expected_error), f"Field '{field}' error '{message}' does not match any expected errors: {expected_error}"
+        ) in message for error in expected_error), \
+            f"Field '{field}' error '{message}' does not match any expected errors: {expected_error}"
     logging.info("-----------------------------------------------")
     logging.info("Test delete the post")
     delete_post(created_post_id)
@@ -251,8 +252,16 @@ def test_update_put_invalid_input(invalid_post, expected_error):
 
 
 def test_invalid_delete():
-    logging.info(f"Testing delete non-existing postid")
+    logging.info(f"Testing DELETE non-existing postid")
     response = requests.delete(f"{POSTS_URL}/12341232")
     logging.info(
         f"DELETE status: {response.status_code}, Response: {response.json()}")
+    assert response.status_code == 404
+
+
+def test_invalid_get():
+    logging.info(f"Testing GET non-existing postid")
+    response = requests.get(f"{POSTS_URL}/12341232")
+    logging.info(
+        f"GET status: {response.status_code}, Response: {response.json()}")
     assert response.status_code == 404

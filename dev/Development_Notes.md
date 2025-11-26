@@ -132,8 +132,16 @@ The script needs polishing
 
 The test script is now rewritten
 
+Added error hanlding tests
+
 ## Align with schema
 
 Fixed unnecessary wrapper for posts response which did not align with schema
+
+## Unit tests
+
+Now the last part is to add test for the Post Service
+
+
 
 

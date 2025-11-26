@@ -7,14 +7,20 @@ public class PostInput {
 
     @NotBlank(message = "Author is mandatory")
     @Size(max = 200, message = "Author name cannot exceed 200 characters")
-    private String author;
+    private final String author;
 
     @NotBlank(message = "Date is mandatory")
-    private String date;
+    private final String date;
 
     @NotBlank(message = "Content is mandatory")
     @Size(max = 10000, message = "Content cannot exceed 10000 characters")
-    private String content;
+    private final String content;
+
+    public PostInput(String author, String date, String content) {
+        this.author = author;
+        this.date = date;
+        this.content = content;
+    }
 
     public String getAuthor() {
         return author;
