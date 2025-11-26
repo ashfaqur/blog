@@ -17,14 +17,19 @@ import java.util.concurrent.ConcurrentHashMap;
 @Service
 public class PostService {
 
-    // TODO: Replace with DB
+    // TODO: Replace with a DB
     private final Map<String, Post> postMap;
 
     public PostService() {
         this.postMap = new ConcurrentHashMap<>();
-        generateSampleData();
     }
 
+    /**
+     * Get post with given id
+     *
+     * @param id ID of the post
+     * @return Post with given ID if it exists
+     */
     public Post getPost(String id) {
         Post post = this.postMap.get(id);
         if (post == null) {
@@ -33,41 +38,68 @@ public class PostService {
         return post;
     }
 
+    /**
+     * Create a new post with given parameters
+     *
+     * @param input Post input data
+     * @return Newly created post
+     */
     public Post createPost(PostInput input) {
         String id = generateId();
-        Post post = createPost(id, input);
+        Post post = buildPost(id, input);
         this.postMap.put(id, post);
         return post;
     }
 
+    /**
+     * Update post with given parameter
+     *
+     * @param id    ID of the post
+     * @param input Post input data with updated information
+     * @return Post with updated data if it exists
+     */
     public Post updatePost(String id, PostInput input) {
-        if (this.postMap.containsKey(id)) {
-            Post newPost = createPost(id, input);
-            this.postMap.put(id, newPost);
-            return newPost;
-        } else {
+        Post updatedPost = this.postMap.computeIfPresent(
+                id, (key, oldPost) -> buildPost(id, input));
+        if (updatedPost == null) {
             throw new PostNotFoundException();
         }
+        return updatedPost;
     }
 
-    private Post createPost(String id, PostInput input) {
+    /**
+     * Builds new post with given data
+     *
+     * @param id    ID for the new post
+     * @param input Post input data
+     * @return Newly created post
+     */
+    private Post buildPost(String id, PostInput input) {
         Instant date;
         try {
             date = Instant.parse(input.getDate());
         } catch (DateTimeParseException e) {
-            throw new PostCreationException("Invalid date format " + input.getDate() + ". Expected format example: 2025-05-16T10:30:00Z");
+            throw new PostCreationException("Invalid date format "
+                    + input.getDate() + ". Expected format example: 2025-05-16T10:30:00Z");
         }
         return new Post(id, input.getAuthor(), date, input.getContent());
     }
 
+    /**
+     * Removes the post with given id
+     *
+     * @param id Post Id
+     */
     public void removePost(String id) {
-        if (this.postMap.containsKey(id)) {
-            this.postMap.remove(id);
-        } else {
+        Post post = this.postMap.remove(id);
+        if (post == null) {
             throw new PostNotFoundException();
         }
     }
 
+    /**
+     * @return List of posts sorted according to ascending timestamps
+     */
     public List<Post> getAllPostsSortedTimestamp() {
         return this.postMap.values().stream().sorted(
                 Comparator.comparing(Post::date)
@@ -76,12 +108,5 @@ public class PostService {
 
     private String generateId() {
         return UUID.randomUUID().toString();
-    }
-
-    private void generateSampleData() {
-        Post post1 = new Post("123", "Jane Doe", Instant.parse("2025-05-16T10:30:00Z"), "First post content.");
-        Post post2 = new Post("124", "John Smith", Instant.parse("2025-05-16T11:00:00Z"), "Second post content.");
-        this.postMap.put(post1.id(), post1);
-        this.postMap.put(post2.id(), post2);
     }
 }

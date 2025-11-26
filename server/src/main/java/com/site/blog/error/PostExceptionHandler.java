@@ -29,13 +29,13 @@ public class PostExceptionHandler {
     }
 
     @ExceptionHandler(PostCreationException.class)
-    public ResponseEntity<PostErrorResponse> handleException(PostCreationException exception) {
+    public ResponseEntity<PostErrorResponse> handlePostCreationException(PostCreationException exception) {
         PostErrorResponse errorResponse = new PostErrorResponse(exception.getMessage());
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(PostNotFoundException.class)
-    public ResponseEntity<PostErrorResponse> handleException(PostNotFoundException exception) {
+    public ResponseEntity<PostErrorResponse> handlePostNotFoundException(PostNotFoundException exception) {
         PostErrorResponse errorResponse = new PostErrorResponse("Post not found");
         return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     }
