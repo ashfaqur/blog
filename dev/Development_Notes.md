@@ -122,3 +122,18 @@ Now adding the post create rest point api
 For validation:
 
 https://www.baeldung.com/spring-boot-bean-validation
+
+All the rest apis added.
+
+## Python script
+
+Pytest for all the rest apis added.
+The script needs polishing
+
+The test script is now rewritten
+
+## Align with schema
+
+Fixed unnecessary wrapper for posts response which did not align with schema
+
+

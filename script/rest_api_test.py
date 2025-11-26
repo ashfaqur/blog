@@ -42,7 +42,7 @@ def get_post(id: str) -> dict:
 def delete_post(id: str):
     """Delete a post"""
     response = requests.delete(f"{POSTS_URL}/{id}")
-    logging.info(f"DELETE /{id} status: {response.status_code}")
+    logging.info(f"DELETE /postId status: {response.status_code}")
     assert response.status_code == 204
     logging.info("DELETE request successful")
 

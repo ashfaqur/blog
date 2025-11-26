@@ -2,9 +2,6 @@ package com.site.blog.rest;
 
 import com.site.blog.entity.Post;
 import com.site.blog.input.PostInput;
-import com.site.blog.response.PostDescriptionResponse;
-import com.site.blog.response.PostListResponse;
-import com.site.blog.response.PostResponse;
 import com.site.blog.service.PostService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -24,36 +21,36 @@ public class PostRestController {
     }
 
     @GetMapping
-    public ResponseEntity<PostListResponse> getPosts() {
+    public ResponseEntity<List<Post>> getPosts() {
         List<Post> posts = this.postService.getAllPostsSortedTimestamp();
-        return ResponseEntity.ok().body(new PostListResponse("A list of posts", posts));
+        return ResponseEntity.ok().body(posts);
     }
 
     @GetMapping("/{postId}")
-    public ResponseEntity<PostResponse> getPost(
+    public ResponseEntity<Post> getPost(
             @PathVariable String postId) {
         Post post = this.postService.getPost(postId);
-        return ResponseEntity.ok().body(new PostResponse("A single post", post));
+        return ResponseEntity.ok().body(post);
     }
 
     @PostMapping
-    public ResponseEntity<PostResponse> addPost(@Valid @RequestBody PostInput postInput) {
+    public ResponseEntity<Post> addPost(@Valid @RequestBody PostInput postInput) {
         Post post = this.postService.createPost(postInput);
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(new PostResponse("Post created", post));
+                .body(post);
     }
 
     @PutMapping("/{postId}")
-    public ResponseEntity<PostResponse> updatePost(
+    public ResponseEntity<Post> updatePost(
             @PathVariable String postId,
             @Valid @RequestBody PostInput postInput) {
         Post post = this.postService.updatePost(postId, postInput);
-        return ResponseEntity.ok().body(new PostResponse("Post updated", post));
+        return ResponseEntity.ok().body(post);
     }
 
     @DeleteMapping("/{postId}")
-    public ResponseEntity<PostDescriptionResponse> deletePost(@PathVariable String postId) {
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deletePost(@PathVariable String postId) {
         this.postService.removePost(postId);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(new PostDescriptionResponse("Post deleted"));
     }
 }

@@ -3,13 +3,16 @@ FROM eclipse-temurin:21-jdk AS build
 WORKDIR /server
 
 # Build
+
+# TODO: split the maven dependency getter from src build
+# otherwise it keeps fetching whenever the source changes
+
 COPY .mvn .mvn
 COPY mvnw .
 COPY pom.xml .
 COPY src ./src
 
 RUN chmod +x ./mvnw && ./mvnw clean package -DskipTests
-
 
 # --- Run stage ---
 FROM eclipse-temurin:21-jre AS run
