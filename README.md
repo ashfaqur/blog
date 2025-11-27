@@ -62,3 +62,12 @@ managing them. An intuitive way for a user to seamlessly play around with the bl
 
 For now, Swagger UI is there for testing the REST APIs.
 
+## AI usage
+
+AI was not used to generate code.
+
+Directly using AI genererated code is not appropiate for a coding challenge,
+and may introduce hidden bugs or reduce code quality.
+
+But it did serve as a learning aid. Helping to clarify documentation and understand
+concepts with relevant examples.
