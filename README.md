@@ -2,7 +2,7 @@
 
 A simple Spring Boot–based REST API for managing blog posts.
 
-Designed for demonstration with easy local setup using Docker along with a Python-based test client.
+Easy server setup using Docker along with a Python-based test client.
 
 ## Quick Start
 
@@ -15,7 +15,7 @@ Designed for demonstration with easy local setup using Docker along with a Pytho
 
     sudo docker compose up --build
 
-After the docker containers start, the Python script will run automitically to test the APIs.
+After the Docker containers start, the Python script will run automatically to test the APIs.
 
 Afterwards the server will still be available on port 8080.
 
@@ -44,21 +44,21 @@ http://localhost:8080/swagger-ui/index.html
 
 The current implementation uses an in-memory `ConcurrentHashMap`.
 
-This was chosen for demo simplicity but not suitable for production because:
-- Data is in memory and not persistant.
+This was chosen for demo simplicity but is not suitable for production because:
+- Data is in memory and not persistent.
 - Memory limit can cause out of memory exception.
-- Multi-step updates are not atomic an can cause issues with multi threads.
+- Multi-step updates are not atomic and can cause issues with multi-threading.
 
-A database service and another container was intentionally not added to keep the solution simple:
-- As suggested in the challenge note itself to ideally have two
+A database service and another container were intentionally not added to keep the solution simple:
+- As suggested in the challenge note itself, ideally have two
 services, one for server and another for script testing.
 - Ensure quality and stable delivery for an earlier submission.
-- Earlier submission allows reviewers some time to review in free time.
+- Earlier submission allows reviewers some time to review in their free time.
 
 ## Future Work - A Front-End
 
 A front-end would be a great addition with blog posts and UI controls for
-managing them. An intuitive for a user seamlessly play around with the REST
-APIs and inherently tesitng it too. 
+managing them. An intuitive way for a user to seamlessly play around with the blog posts while inherently testing the endpoints.
 
-For now swagger UI is there for testing the REST APIs.
+For now, Swagger UI is there for testing the REST APIs.
+
