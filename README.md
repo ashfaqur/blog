@@ -57,8 +57,9 @@ services, one for server and another for script testing.
 
 ## Future Work - A Front-End
 
-A front-end would be a great addition with blog posts and UI controls for
-managing them. An intuitive way for a user to seamlessly play around with the blog posts while inherently testing the endpoints.
+A Angular front-end would be a great addition with blog posts and UI controls for
+managing them. An intuitive way for a user to seamlessly play around with the blog
+posts while inherently testing the endpoints.
 
 For now, Swagger UI is there for testing the REST APIs.
 
