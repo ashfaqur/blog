@@ -4,6 +4,10 @@ A simple Spring Boot–based REST API for managing blog posts.
 
 Easy server setup using Docker along with a Python-based test client.
 
+## Architecture
+
+![Architecture](/assets/BlogPostCurrent.png)
+
 ## Quick Start
 
 ### Prerequisites:
@@ -49,12 +53,6 @@ This was chosen for demo simplicity but is not suitable for production because:
 - Memory limit can cause out of memory exception.
 - Multi-step updates are not atomic and can cause issues with multi-threading.
 
-A database service and another container were intentionally not added to keep the solution simple:
-- As suggested in the challenge note itself, ideally have two
-services, one for server and another for script testing.
-- Ensure quality and stable delivery for an earlier submission.
-- Earlier submission allows reviewers some time to review in their free time.
-
 ## Future Work - A Front-End
 
 A Angular front-end would be a great addition with blog posts and UI controls for
@@ -63,12 +61,6 @@ posts while inherently testing the endpoints.
 
 For now, Swagger UI is there for testing the REST APIs.
 
-## AI usage
+## Authentication
 
-AI was not used to generate code.
-
-Directly using AI genererated code is not appropiate for a coding challenge,
-and may introduce hidden bugs or reduce code quality.
-
-But it did serve as a learning aid. Helping to clarify documentation and understand
-concepts with relevant examples.
+JWT based authentication for the stateless REST APIs  
